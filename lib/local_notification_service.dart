@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -19,7 +22,7 @@ class LocalNotificationService {
   void init() {
     // FOR ANDROID
     const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     // FOR IOS
     final DarwinInitializationSettings initializationSettingsDarwin =
@@ -76,31 +79,56 @@ class LocalNotificationService {
           importance: Importance.max,
           description: 'My Notification description');
 
-  void showLocalNotification(String data, int id) {
+  // without firebase
+  void showLocalNotification(String data) {
+    var id = Random().nextInt(100);
     flutterLocalNotificationsPlugin.show(
       id,
-      'Sherzod',
-      'Sherzod Kamoldinov',
+      'Notification title',
+      'Notification body',
       NotificationDetails(
         android: AndroidNotificationDetails(
-          androidNotificationChannel.id,
-          androidNotificationChannel.name,
-          priority: Priority.high,
-          icon: 'app_icon',
-          playSound: true,
-        ),
+            androidNotificationChannel.id, androidNotificationChannel.name,
+            priority: Priority.max,
+            icon: 'app_icon', // app icon
+            playSound: true,
+            showProgress: true,
+            largeIcon: const DrawableResourceAndroidBitmap('app_icon')),
       ),
       payload: data,
     );
   }
 
-  void scheduleNotification(int seconds) async {
+  // with firebase
+  void showLocalNotificationWithRemoteMessage(
+    RemoteMessage remoteMessage,
+  ) {
+    flutterLocalNotificationsPlugin.show(
+      10,
+      remoteMessage.notification?.title,
+      remoteMessage.notification?.body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          androidNotificationChannel.id,
+          androidNotificationChannel.name,
+          priority: Priority.max,
+          icon: 'app_icon', // app icon
+          playSound: true,
+          showProgress: true,
+          largeIcon: const DrawableResourceAndroidBitmap('app_icon'),
+        ),
+      ),
+      payload: remoteMessage.data.toString(),
+    );
+  }
+
+  void scheduleNotification({required DateTime dt}) async {
+    var id = Random().nextInt(100);
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      4,
-      'Schedule Notification', // title
-      'example', // body
-      tz.TZDateTime.now(tz.local)
-          .add(Duration(seconds: seconds)), // add time to now
+      id,
+      'Product qoshildi', // title
+      'Product: ', // body
+      tz.TZDateTime.from(dt, tz.local), // add time to now
       NotificationDetails(
           android: AndroidNotificationDetails(
         androidNotificationChannel.id,

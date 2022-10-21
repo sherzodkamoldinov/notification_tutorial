@@ -4,15 +4,15 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_tutorial/local_notification_service.dart';
 
 
-class FirebasePushNotification extends StatefulWidget {
-  const FirebasePushNotification({super.key});
+class FirebasePushNotificationPage extends StatefulWidget {
+  const FirebasePushNotificationPage({super.key});
 
   @override
-  State<FirebasePushNotification> createState() =>
+  State<FirebasePushNotificationPage> createState() =>
       _FirebasePushNotificationState();
 }
 
-class _FirebasePushNotificationState extends State<FirebasePushNotification> {
+class _FirebasePushNotificationState extends State<FirebasePushNotificationPage> {
   @override
   void initState() {
     super.initState();

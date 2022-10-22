@@ -1,13 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notification_tutorial/cloud_notification_page.dart';
+import 'package:notification_tutorial/data/services/local_service.dart';
 import 'package:notification_tutorial/local_notification_service.dart';
 import 'package:notification_tutorial/ui/router.dart';
 import 'package:notification_tutorial/ui/splash_screen/splash_page.dart';
 import 'package:notification_tutorial/utils/colors.dart';
 import 'package:notification_tutorial/utils/consts.dart';
-
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint("HANDLING A BACKGROUND MESSAGE: ${message.data}");
@@ -17,9 +18,14 @@ void main() async {
   // CRETE WIDGET TREE
   WidgetsFlutterBinding.ensureInitialized();
 
+  // INITIALIZE HIVE
+  await Hive.initFlutter();
+  // CREATE DATABASE 
+  await HiveService.instance.createBox();
+
   // ANOTHER TREE
   await Firebase.initializeApp();
-  
+
   LocalNotificationService.localNotificationService.init();
 
   // BACKGROUND NOTFICATION LISTEN
@@ -35,8 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        
-         useMaterial3: true,
+        useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

@@ -25,12 +25,12 @@ class _FirebasePushNotificationState extends State<FirebasePushNotificationPage>
 
     // FOREGROUND NOTFICATION LISTEN
     FirebaseMessaging.onMessage.listen(
-      LocalNotificationService().showLocalNotificationWithRemoteMessage,
+      LocalNotificationService().showLocalNotification,
     );
 
     // ON MESSAGE OPENED APP NOTFICATION LISTEN
     FirebaseMessaging.onMessageOpenedApp.listen(
-      LocalNotificationService().showLocalNotificationWithRemoteMessage,
+      LocalNotificationService().showLocalNotification,
     );
 
     // WHEN APP TERMINATED NOTFICATION LISTEN

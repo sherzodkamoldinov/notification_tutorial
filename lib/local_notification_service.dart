@@ -79,28 +79,28 @@ class LocalNotificationService {
           importance: Importance.max,
           description: 'My Notification description');
 
-  // without firebase
-  void showLocalNotification(String data) {
-    var id = Random().nextInt(100);
-    flutterLocalNotificationsPlugin.show(
-      id,
-      'Notification title',
-      'Notification body',
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-            androidNotificationChannel.id, androidNotificationChannel.name,
-            priority: Priority.max,
-            icon: 'app_icon', // app icon
-            playSound: true,
-            showProgress: true,
-            largeIcon: const DrawableResourceAndroidBitmap('app_icon')),
-      ),
-      payload: data,
-    );
-  }
+  // // without firebase
+  // void showLocalNotification(String data) {
+  //   var id = Random().nextInt(100);
+  //   flutterLocalNotificationsPlugin.show(
+  //     id,
+  //     'Notification title',
+  //     'Notification body',
+  //     NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //           androidNotificationChannel.id, androidNotificationChannel.name,
+  //           priority: Priority.max,
+  //           icon: 'app_icon', // app icon
+  //           playSound: true,
+  //           showProgress: true,
+  //           largeIcon: const DrawableResourceAndroidBitmap('app_icon')),
+  //     ),
+  //     payload: data,
+  //   );
+  // }
 
   // with firebase
-  void showLocalNotificationWithRemoteMessage(
+  void showLocalNotification(
     RemoteMessage remoteMessage,
   ) {
     flutterLocalNotificationsPlugin.show(

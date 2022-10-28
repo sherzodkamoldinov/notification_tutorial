@@ -7,12 +7,13 @@ class TodoItemView extends StatelessWidget {
       {super.key,
       required this.title,
       required this.subTitle,
-      required this.dateTime, required this.iconData});
+      required this.dateTime,
+      required this.iconData});
 
   final String title;
   final String subTitle;
   final String dateTime;
-  final IconData iconData;
+  final String iconData;
 
   bool checked = false;
 
@@ -20,6 +21,7 @@ class TodoItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       height: 150,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -78,7 +80,13 @@ class TodoItemView extends StatelessWidget {
               color: MyColors.bluePurple,
               child: Center(
                   child: Icon(
-                iconData,
+                iconData == '0'
+                    ? Icons.sports_football
+                    : iconData == '1'
+                        ? Icons.home
+                        : iconData == '2'
+                            ? Icons.adb
+                            : Icons.ac_unit,
                 size: 36,
                 color: MyColors.white,
               )),

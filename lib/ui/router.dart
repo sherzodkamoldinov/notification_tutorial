@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notification_tutorial/ui/home_page/home_page.dart';
+import 'package:notification_tutorial/ui/home_page/test.dart';
 import 'package:notification_tutorial/ui/splash_screen/splash_page.dart';
 import 'package:notification_tutorial/utils/consts.dart';
 
@@ -10,6 +11,8 @@ class MyGenerateRouter {
         return _navigateTo(const SplashPage());
       case mainPage:
         return _navigateTo(const HomePage());
+      case testPage:
+        return _navigateTo(const TestPage());
       default:
         return _navigateTo(
           Scaffold(
@@ -20,7 +23,6 @@ class MyGenerateRouter {
   }
 }
 
-
- MaterialPageRoute _navigateTo(Widget page) {
-    return MaterialPageRoute(builder: (_) => page);
-  }
+MaterialPageRoute _navigateTo(Widget page) {
+  return MaterialPageRoute(builder: (_) => page);
+}
